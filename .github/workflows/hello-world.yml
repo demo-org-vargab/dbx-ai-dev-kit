@@ -52,6 +52,7 @@ jobs:
            export DATABRICKS_HOST=${{ vars.DATABRICKS_HOST }}
            export DATABRICKS_CLIENT_ID=${{ vars.DATABRICKS_CLIENT_ID }}
            export DATABRICKS_CLIENT_SECRET=${{ secrets.DATABRICKS_CLIENT_SECRET }}
+           databricks auth describe 
 
       - name: Deploy Ai Dev Kit
         run: |
