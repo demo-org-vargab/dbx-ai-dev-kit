@@ -17,16 +17,14 @@ jobs:
           curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
           databricks --version
 
-      - name: Install and use Node 24
+      - name: Install and use Node npm
         run: |
-          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.6/install.sh | bash
-          source ~/.bashrc
-          nvm install 24
-          nvm use 24
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+          nvm install --lts
           node -v
           npm -v
 
-      - name: Print hello world
+      - name: Install uv
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
           source ~/.bashrc
