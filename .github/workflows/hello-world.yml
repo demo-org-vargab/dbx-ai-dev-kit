@@ -58,4 +58,4 @@ jobs:
         run: |
            git clone https://github.com/databricks-solutions/ai-dev-kit.git
            cd ai-dev-kit/databricks-builder-app
-           ./scripts/deploy.sh ai-dev-kit
+           ./scripts/deploy.sh ai-dev-kit --profile default 
