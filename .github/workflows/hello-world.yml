@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  hello:
+  Ai_Dev_Kit:
     runs-on: ubuntu-latest
     steps:
       - name: Install Databricks CLI
@@ -19,10 +19,27 @@ jobs:
 
       - name: Install and use Node npm
         run: |
-          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-          nvm install --lts
-          node -v
-          npm -v
+ 
+            NODE_VERSION="v20.15.1"   # adjust as needed
+            DISTRO="linux-x64"        # change if you're on ARM or another arch
+
+            # Create local install directory
+            mkdir -p $HOME/.local/nodejs
+
+            # Download Node.js tarball
+            curl -o node.tar.xz https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-$DISTRO.tar.xz
+
+            # Extract into local directory
+            tar -xJf node.tar.xz -C $HOME/.local/nodejs --strip-components=1
+
+            # Update PATH (add to .bashrc or .zshrc for persistence)
+            echo 'export PATH=$HOME/.local/nodejs/bin:$PATH' >> $HOME/.bashrc
+            export PATH=$HOME/.local/nodejs/bin:$PATH
+
+            # Verify installation
+            node -v
+            npm -v
+
 
       - name: Install uv
         run: |
