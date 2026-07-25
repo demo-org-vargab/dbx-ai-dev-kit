@@ -1,0 +1,45 @@
+name: Ai Dev Kit
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Databricks CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+          databricks --version
+
+      - name: Install and use Node 24
+        run: |
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.6/install.sh | bash
+          source ~/.bashrc
+          nvm install 24
+          nvm use 24
+          node -v
+          npm -v
+
+      - name: Print hello world
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          source ~/.bashrc
+          uv --version
+
+      - name: Setup Databricks Profile
+        run: |
+           export DATABRICKS_HOST=${{ vars.DATABRICKS_HOST }}
+           export DATABRICKS_CLIENT_ID=${{ vars.DATABRICKS_CLIENT_ID }}
+           export DATABRICKS_CLIENT_SECRET=${{ secrets.DATABRICKS_CLIENT_SECRET }}
+
+      - name: Deploy Ai Dev Kit
+        run: |
+           git clone https://github.com/databricks-solutions/ai-dev-kit.git
+           cd ai-dev-kit/databricks-builder-app
+           ./scripts/deploy.sh ai-dev-kit
