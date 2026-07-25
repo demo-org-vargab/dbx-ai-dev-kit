@@ -47,15 +47,11 @@ jobs:
           source ~/.bashrc
           uv --version
 
-      - name: Setup Databricks Profile
-        run: |
-           export DATABRICKS_HOST=${{ vars.DATABRICKS_HOST }}
-           export DATABRICKS_CLIENT_ID=${{ vars.DATABRICKS_CLIENT_ID }}
-           export DATABRICKS_CLIENT_SECRET=${{ secrets.DATABRICKS_CLIENT_SECRET }}
-           databricks auth describe --output JSON
-
       - name: Deploy Ai Dev Kit
         run: |
            git clone https://github.com/databricks-solutions/ai-dev-kit.git
            cd ai-dev-kit/databricks-builder-app
+           export DATABRICKS_HOST=${{ vars.DATABRICKS_HOST }}
+           export DATABRICKS_CLIENT_ID=${{ vars.DATABRICKS_CLIENT_ID }}
+           export DATABRICKS_CLIENT_SECRET=${{ secrets.DATABRICKS_CLIENT_SECRET }}
            ./scripts/deploy.sh ai-dev-kit
