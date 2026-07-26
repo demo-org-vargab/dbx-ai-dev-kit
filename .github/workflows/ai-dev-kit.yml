@@ -11,6 +11,10 @@ on:
 jobs:
   Ai_Dev_Kit:
     runs-on: ubuntu-latest
+    env:
+      DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
+      DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
+      DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
     steps:
       - name: Install Databricks CLI
         run: |
@@ -51,7 +55,4 @@ jobs:
         run: |
            git clone https://github.com/databricks-solutions/ai-dev-kit.git
            cd ai-dev-kit/databricks-builder-app
-           export DATABRICKS_HOST=${{ vars.DATABRICKS_HOST }}
-           export DATABRICKS_CLIENT_ID=${{ vars.DATABRICKS_CLIENT_ID }}
-           export DATABRICKS_CLIENT_SECRET=${{ secrets.DATABRICKS_CLIENT_SECRET }}
            ./scripts/deploy.sh ai-dev-kit
